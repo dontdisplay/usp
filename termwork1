@@ -1,0 +1,80 @@
+	#define _POSIX_SOURCE
+	#define _POSIX_C_SOURCE 199309L
+	#include<iostream>
+	#include<limits.h>
+	#include<stdio.h>
+	#include<unistd.h>
+	using namespace std;
+	
+	void runtime(void)
+	{
+	int res;
+	if(res=sysconf(_SC_CLK_TCK)==-1)
+		perror("sysconf");
+	else
+		cout<<"CLOCK TICKS PER SECOND ARE"<<res<<"\n";
+	if(res=sysconf(_SC_CHILD_MAX)==-1)
+		perror("sysconf");
+	else
+		cout<<"MAX NO OF CHILD PROCESSES MAY BE CREATED ARE "<<res<<"\n";
+	if(res=pathconf("/",_PC_PATH_MAX)==-1)
+		perror("pathconf");
+	else
+		cout<<"MAX LENGTH OF FILE NAME IS "<<res<<"\n";
+	if(res=pathconf("/",_PC_NAME_MAX)==-1)
+		perror("PATHCONF");
+	else
+		cout<<"MAX SIZE OF BYTES IN FILE NAME ARE"<<res<<"\n";
+	if(res=pathconf("/",_POSIX_OPEN_MAX)==-1)
+		perror("pathconf");
+	else
+		cout<<"MAX NO OF FILES THAT CAN BE OPENED ARE"<<res<<"\n";
+	}
+	
+	void compiletime(void)
+	{
+	#ifdef _POSIX_CHILD_MAX
+		cout<<"MAX NO OF CHILD PROCESSES MAY BE CREATED ARE "<<_POSIX_CHILD_MAX<<"\n";
+	#else 
+		cout<<"_POSIX_CHILD_MAX is not defined"<<"\n";
+	#endif
+	#ifdef _POSIX_NAME_MAX
+		cout<<"MAX SIZE OF FILE NAME IN BYTES "<<_POSIX_NAME_MAX<<"\n";
+	#else 
+		cout<<"_POSIX_NAME_MAX is not defined"<<"\n";
+	#endif
+	#ifdef _POSIX_OPEN_MAX
+		cout<<"MAX NO OF FILES THAT CAN BE OPENED ARE"<<_POSIX_OPEN_MAX<<"\n";
+	#else 
+		cout<<"_POSIX_OPEN_MAX is not defined"<<"\n";
+	#endif
+	#ifdef _POSIX_PATH_MAX
+		cout<<"MAX NO OF CHARACTERS IN PATHNAME"<<_POSIX_PATH_MAX<<"\n";
+	#else 
+		cout<<"_POSIX_PATH_MAX is not defined"<<"\n";
+	#endif
+	}
+	
+	int main()
+	{
+	int choice,l=1;
+	while(l)
+	{
+	cout<<"Enter 1 to check run time limits"<<"\n";
+	cout<<"Enter 2 to check compile time limits"<<"\n";
+	cout<<"Enter 3 to exit"<<"\n";
+	cin>>choice;
+	
+	switch(choice)
+	{
+	case 1:runtime();
+		break;
+	case 2:compiletime();
+		break;
+	case 3:l=0;;
+		break;
+		}}
+	return 0;
+	}
+	
+	
