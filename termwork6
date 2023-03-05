@@ -1,0 +1,31 @@
+#define _POSIX_SOURCE
+#define _POSIX_C_SOURCE 199309L
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+static void cat(char *str)
+{
+int c;
+char *ptr;
+setbuf(stdout,NULL);
+for(ptr=str;(c=*ptr++)!=0;)
+{
+putc(c,stdout);}}
+
+
+
+int main()
+{
+int i,pid;
+for(i=0;i<10;i++)
+{
+if((pid=fork())<0)
+perror("fork");
+else if(pid==0)
+cat("Output by child process\n");
+else
+cat("OUtput by parent process\n");
+}
+return 0;
+}
+
