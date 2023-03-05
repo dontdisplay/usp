@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/types.h>
+int main(int argc,char *argv[]){
+if(argc==3)
+{
+printf("HARD LINK CREATED\n");
+return link(argv[1],argv[2]);
+}
+else if(argc==4)
+{
+if((strcmp(argv[1],"-s"))==0)
+{
+printf("SYMBOLIC LINK CREATED");
+return symlink(argv[2],argv[3]);
+}
+else
+{
+printf("-s required for symbolic link");
+}
+}
+else
+{
+printf("INVALID NUMBER OF ARGUMENTS");
+}
+return 0;
+}
