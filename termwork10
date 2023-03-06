@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<signal.h>
+#define INTERVAL 5
+
+void call_me(int sig_no)
+{
+alarm(INTERVAL);
+printf("\nHELLO");
+}
+
+int main()
+{
+struct sigaction action;
+action.sa_handler=&call_me;
+sigaction(SIGALRM,&action,0);
+alarm(2);
+sleep(5);
+return 0;
+}
